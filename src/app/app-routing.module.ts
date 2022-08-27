@@ -2,9 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesRoutingModule } from './pages/pages.routing';
 
-import { AuthModule } from './auth/auth.module';
+
+
 
 import { NotpagefoundComponent } from './notpagefound/notpagefound.component';
+import { AuthRoutingModule } from './auth/auth.routing';
+
 
 const routes: Routes = [
 
@@ -14,13 +17,19 @@ const routes: Routes = [
     // path : '/medicos': MedicosRouting
     //path : '/compras' : ComprasRouting
     {path: '', redirectTo: '/dashboard', pathMatch:'full'},
-    { path: '**', component: NotpagefoundComponent}
+    { path: '**', component: NotpagefoundComponent},
+
+   
 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes),
-    PagesRoutingModule, AuthModule ],
+    PagesRoutingModule,
+    AuthRoutingModule
+    
+   
+  ],
   
   exports: [RouterModule]
 })
