@@ -8,6 +8,7 @@ import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../models/login-form.interface';
+import { Usuario } from '../models/usuario.model';
 
 declare const google: any
 declare const gapi: any
@@ -19,11 +20,25 @@ const base_url = environment.base_url
 })
 export class UsuarioService {
 
+  public usuario : Usuario | undefined 
+
   constructor( private http: HttpClient, 
     private router: Router,
-    private ngZone: NgZone ) { 
+    private ngZone: NgZone,
+    ) { 
+
+      
 
     this.googleInit()
+  }
+
+  get token():string{
+    return  localStorage.getItem('token') || '';
+  }
+
+  get uid():string{
+    return this.usuario?.uid || '';
+
   }
 
 
@@ -65,16 +80,27 @@ export class UsuarioService {
   }
 
   validarToken(): Observable<boolean>{
-    const token = localStorage.getItem('token') || '';
+    //const token = localStorage.getItem('token') || '';
     return this.http.get(`${base_url}/login/renew`, {
       headers: {
-        'x-token': token
+        'x-token': this.token
       }
     }).pipe(
-      tap((resp : any)=> {
+      map((resp : any)=> {
+
+        
+
+        const { nombre, email, role , img= '',google,uid} = resp.usuario
+
+
+        this.usuario = new Usuario( nombre, email, '', img, google, role, uid)
+
+        //this.usuario.imprimirUsuario()
+       
         localStorage.setItem('token', resp.token)
+        return true;
       }),
-      map( resp => true),
+      //map( resp => true),
       catchError(error=> of(false) ) // of retorna un nuevo obs segun el valor que se le transmita
 
       )
@@ -91,6 +117,22 @@ export class UsuarioService {
       })
     )
     
+  }
+
+  actualizarPerfil(data: any){
+
+  data = {
+    ...data,
+    role: this.usuario?.role
+  }
+
+
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data,  {
+      headers: {
+      'x-token': this.token
+      }
+    })
+
   }
 
   login(formData: Partial<LoginForm>){
