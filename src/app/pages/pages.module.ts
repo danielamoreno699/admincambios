@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts';
+import { FormsModule } from '@angular/forms';
 
 
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -16,6 +17,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 
 
 
@@ -29,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AccountSettingsComponent,
     PromesasComponent,
     RxjsComponent,
-    PerfilComponent
+    PerfilComponent,
+    UsuariosComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +40,8 @@ import { ReactiveFormsModule } from '@angular/forms';
      AppRoutingModule,
      ComponentsModule,
      ReactiveFormsModule,
-     NgChartsModule
+     NgChartsModule,
+     FormsModule
      
   ],
   exports: [

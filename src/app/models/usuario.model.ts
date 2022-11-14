@@ -11,19 +11,19 @@ export class Usuario {
         public img?: string, 
         public google?: boolean,
         public role?: string,
-        public uid? : string
+        public uid? : string,
+        
     ){}
 
   get imagenUrl(){
     
     //console.log(this.img)
 
-    if(this.img?.includes('https')){
+    if(!this.img){
+        return `${base_url}/upload/usuarios/no-image`
+    } else  if(this.img?.includes('https')){
         return this.img
-    }
-
-    //   /upload/medicos/baf68b35-3112-4c58-a977-c801a37ad8cd.png
-    if( this.img ){
+    } else if( this.img ){
         return `${base_url}/upload/usuarios/${this.img}`
     } else {
 
