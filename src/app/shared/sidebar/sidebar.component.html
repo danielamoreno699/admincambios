@@ -20,9 +20,9 @@
                         <li class="nav-small-cap">PERSONAL</li>
 
 
-                        <li *ngFor="let item of menuItems"> 
+                        <li *ngFor="let item of sidebarService.menu"> 
                             <a class="has-arrow waves-effect waves-dark" href="#" >
-                            <i [class]="item.icono"></i>
+                            <i [class]= "item.icono"></i>
                             <span class="hide-menu">
                                 {{item.titulo}}
                                 <span class="label label-rouded label-themecolor pull-right">

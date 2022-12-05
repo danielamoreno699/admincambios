@@ -23,6 +23,7 @@ import { MedicosComponent } from './mantenimiento/medicos/medicos.component';
 import { PipesModule } from '../pipes/pipes.module';
 
 import { MedicoComponent } from './mantenimiento/medicos/medico.component';
+import { BusquedasComponent } from './busquedas/busquedas.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { MedicoComponent } from './mantenimiento/medicos/medico.component';
     UsuariosComponent,
     HospitalesComponent,
     MedicosComponent,
-    MedicoComponent
+     MedicoComponent,
+    BusquedasComponent
     
   ],
   imports: [
@@ -58,7 +60,8 @@ import { MedicoComponent } from './mantenimiento/medicos/medico.component';
     ProgressComponent,
     GraficaComponent,
     PagesComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    MedicoComponent
 
   ]
 })

@@ -40,7 +40,7 @@ export class MedicoService {
   }
 
   obtenerMedicoPorId(id:string){
-    const url = `${base_url}/medicos/${id}`
+    const url = `${base_url}/medico/${id}`
     return this.http.get(url, this.headers)
         .pipe(
           //map( (resp: {ok:boolean, hospitales: Hospital[]}) =>  resp.hospitales)

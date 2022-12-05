@@ -38,6 +38,10 @@ export class UsuarioService {
     return  localStorage.getItem('token') || '';
   }
 
+  get role(): any{
+      return this.usuario?.role
+  }
+
   get uid():string{
     return this.usuario?.uid || '';
 
@@ -63,6 +67,13 @@ export class UsuarioService {
 
   }
 
+  guardarLocalStorage(token:string, menu:any){
+    localStorage.setItem('token', token)
+    localStorage.setItem('menu', JSON.stringify(menu))
+    
+  
+  }
+
   handleCredentialResponse( response: any ){
     console.log("Encoded JWT ID token: " + response.credential);
       this.loginGoogle(response.credential)
@@ -73,6 +84,9 @@ export class UsuarioService {
 
   logOut(){
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
+
+
 
     //var auth2 = gapi.auth2.getAuthInstance(); // instancia de google para evitar que cuando haga logout siga autenticado
     //auth2.signOut().then(function () {
@@ -109,7 +123,8 @@ export class UsuarioService {
 
         //this.usuario.imprimirUsuario()
        
-        localStorage.setItem('token', resp.token)
+       this.guardarLocalStorage(resp.token, resp.menu)
+
         return true;
       }),
       //map( resp => true),
@@ -125,7 +140,8 @@ export class UsuarioService {
     //console.log('creando usuario')
     .pipe(
       tap((resp :any ) =>{
-        localStorage.setItem('token', resp.token)
+        this.guardarLocalStorage(resp.token, resp.menu)
+        
       })
     )
     
@@ -150,7 +166,7 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login`, formData)
     .pipe(
       tap((resp :any ) =>{
-        localStorage.setItem('token', resp.token)
+        this.guardarLocalStorage(resp.token, resp.menu)
       })
     )
     //console.log('creando usuario')
@@ -161,7 +177,7 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login/google`, {token})
       .pipe(
         tap((resp :any ) =>{
-          localStorage.setItem('token', resp.token)
+          this.guardarLocalStorage(resp.token, resp.menu)
         })
       )
   }

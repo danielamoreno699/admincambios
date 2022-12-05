@@ -15,6 +15,8 @@ import { UsuariosComponent } from "./mantenimiento/usuarios/usuarios.component";
 import { HospitalesComponent } from "./mantenimiento/hospitales/hospitales.component";
 import { MedicosComponent } from "./mantenimiento/medicos/medicos.component";
 import { MedicoComponent } from "./mantenimiento/medicos/medico.component";
+import { BusquedasComponent } from "./busquedas/busquedas.component";
+import { AdminGuard } from "../guards/admin.guard";
 
 const routes: Routes = [
 
@@ -30,13 +32,18 @@ const routes: Routes = [
                 { path: 'promesas', component: PromesasComponent, data : { titulo : 'promesas'}},
                 { path: 'rxjs', component: RxjsComponent, data : { titulo : 'rxjs'}},
                 { path: 'perfil', component: PerfilComponent, data : { titulo : 'perfil de usuario'}},
+                { path: 'buscar/:termino', component: BusquedasComponent, data : { titulo : 'busquedas'}},
                 //{path: '', redirectTo: '/dashboard', pathMatch:'full'},
 
                 //mantenimientos
-                { path: 'usuarios', component: UsuariosComponent, data : { titulo : 'Mantenimiento de Usuarios'}},
+              
                 { path: 'hospitales', component: HospitalesComponent, data : { titulo : 'Mantenimiento de Hospitales'}},
                 { path: 'medicos', component: MedicosComponent, data : { titulo : 'Mantenimiento de Medicos'}},
-                { path: 'medico/:id', component: MedicoComponent, data : { titulo : 'Mantenimiento de Medicos'}}
+                { path: 'medico/:id', component: MedicoComponent, data : { titulo : 'Mantenimiento de Medicos'}},
+
+                //Rutas Admin
+
+                { path: 'usuarios', canActivate: [AdminGuard], component: UsuariosComponent, data : { titulo : 'Mantenimiento de Usuarios'}},
 
               ]
   },
